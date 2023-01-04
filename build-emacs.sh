@@ -160,8 +160,8 @@ echo "
   --with-modules \
   --with-mailutils \
   --with-json \
-  --without-compress-install \
-  --program-transform-name='s/^ctags$/emctags/'
+  --without-compress-install \ # don't compress things like help & info files
+  --program-transform-name='s/^ctags$/emctags/' \ # avoid ctags namespace conflict
 
 echo "
 # ======================================================
