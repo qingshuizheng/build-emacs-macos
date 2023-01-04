@@ -18,7 +18,7 @@
 
 ROOT_DIR="`pwd`"
 BUILD_DIR=/tmp/emacs-build
-SRC_DIR=$HOME/Documents/emacs/
+SRC_DIR=$HOME/Developer/building-emacs/emacs-git
 GIT_VERSION=emacs-git-version.el
 SITELISP=/Applications/Emacs.app/Contents/Resources/site-lisp
 BREW=$(brew --prefix)
@@ -32,9 +32,9 @@ echo "
 # Check for Homebrew,
 if ! command -v brew </dev/null 2>&1
 then
-   echo "Please install homebrew -- see bemacs-requirements.sh"
+  echo "Please install homebrew -- see bemacs-requirements.sh"
 else
-    echo "Homebrew installed!"
+  echo "Homebrew installed!"
 fi
 
 export LDFLAGS="-L${BREW}/opt/libxml2/lib -L${BREW}/opt/giflib/lib -L${BREW}/opt/webp/lib -L${BREW}/opt/jpeg/lib -L${BREW}/opt/libtiff/lib"
@@ -65,11 +65,11 @@ cd ${SRC_DIR}
 # ======================================================
 
 if test -n "$1"; then
-    commit="$1"
+  commit="$1"
 else
-    commit="origin/master"
-    git checkout master
-    git pull
+  commit="origin/master"
+  git checkout master
+  git pull
 fi
 
 git archive --format tar $commit | tar -C ${BUILD_DIR} -xvf -
@@ -91,8 +91,8 @@ echo "
 
 # Note that this applies all patches in 'patches' dir
 for f in ${PATCH_LIST}; do
-    echo "Applying patch `basename $f`"
-    patch -p1 -i $f
+  echo "Applying patch `basename $f`"
+  patch -p1 -i $f
 done
 
 # ======================================================
@@ -139,7 +139,7 @@ export OBJC=clang
 # ======================================================
 
 for f in $STRINGS; do
-    sed -e "s/@version@/@version@ $VERS/" -i '' $f
+  sed -e "s/@version@/@version@ $VERS/" -i '' $f
 done
 
 echo "
@@ -153,15 +153,15 @@ echo "
 # installed ctags; see and don't compress info files, etc
 # https://www.topbug.net/blog/2016/11/10/installing-emacs-from-source-avoid-the-conflict-of-ctags/
 ./configure \
-    --with-dbus \
-    --with-ns \
-    --with-native-compilation \
-    --with-xwidgets \
-    --with-modules \
-    --with-mailutils \
-    --with-json \
-    --without-compress-install \
-    --program-transform-name='s/^ctags$/emctags/' \
+  --with-dbus \
+  --with-ns \
+  --with-native-compilation \
+  --with-xwidgets \
+  --with-modules \
+  --with-mailutils \
+  --with-json \
+  --without-compress-install \
+  --program-transform-name='s/^ctags$/emctags/'
 
 echo "
 # ======================================================
@@ -194,14 +194,14 @@ pkill -i emacs
 
 if [ -e /Applications/Emacs.app ]
 then
-   if command -v trash </dev/null 2>&1
-   then
+  if command -v trash </dev/null 2>&1
+  then
     echo "Trashing old emacs..."
     trash /Applications/Emacs.app
-   else
+  else
     echo "Removing old emacs..."
     rm -rf /Applications/Emacs.app
-   fi
+  fi
 fi
 
 # Move build to applications folder
@@ -255,7 +255,7 @@ echo "
 
 # Make a directory for the build's log files and move them there
 # Note that this removes a previous identical dir if making multiple similar builds
-rm -rf ${ROOT_DIR}/build-logs/${DESCR}; mkdir ${ROOT_DIR}/build-logs/
+rm -rf ${ROOT_DIR}/build-logs/${DESCR}; mkdir -p ${ROOT_DIR}/build-logs/
 mv ${BUILD_DIR}/config.log ${ROOT_DIR}/build-logs/config-${DESCR}.log
 mv ${BUILD_DIR}/build-log.txt ${ROOT_DIR}/build-logs/build-log-${DESCR}.txt
 mv ${BUILD_DIR}/bootstrap-log.txt ${ROOT_DIR}/build-logs/bootstrap-log-${DESCR}.txt
