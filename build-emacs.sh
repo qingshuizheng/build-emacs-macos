@@ -160,8 +160,8 @@ echo "
   --with-modules \
   --with-mailutils \
   --with-json \
-  --without-compress-install \ # don't compress things like help & info files
-  --program-transform-name='s/^ctags$/emctags/' \ # avoid ctags namespace conflict
+  --without-compress-install \
+  --program-transform-name='s/^ctags$/emctags/'
 
 echo "
 # ======================================================
@@ -230,8 +230,8 @@ echo "
 # ======================================================
 "
 
-# Copy new icon to emacs (currently using a big sur icon)
-# See https://github.com/d12frosted/homebrew-emacs-plus/issues/419
+# Copy new icon to emacs (currently using an abject-doom icon)
+# See https://github.com/eccentric-j/doom-icon
 cp ${ROOT_DIR}/materials/emacs-abject-doom.icns /Applications/Emacs.app/Contents/Resources/Emacs.icns
 
 echo "DONE!"
@@ -242,8 +242,10 @@ echo "
 # ======================================================
 "
 
-# Copy C source files to Emacs
-cp -r ${SRC_DIR}/src /Applications/Emacs.app/Contents/Resources/
+# Copy C source files to Emacs, prefer src file from BUILD_DIR to SRC_DIR, since they are "BUILT" ones
+cp -r ${BUILD_DIR}/src /Applications/Emacs.app/Contents/Resources/
+# Copy doc files to Emacs, are these useful?
+cp -r ${BUILD_DIR}/doc /Applications/Emacs.app/Contents/Resources/
 
 echo "DONE!"
 
@@ -268,8 +270,8 @@ echo "
 # ======================================================
 "
 
-# Delete build dir
-rm -rf ${BUILD_DIR}
+# BUILD DIR can be deleted, but I prefer to keep it, it'll be refreshed on next build
+# rm -rf ${BUILD_DIR}
 
 echo "DONE!"
 
