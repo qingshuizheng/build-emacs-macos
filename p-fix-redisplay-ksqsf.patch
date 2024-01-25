@@ -1,0 +1,13 @@
+diff --git a/src/nsterm.m b/src/nsterm.m
+index 3e089cc1ff1..c6c17fc6de4 100644
+--- a/src/nsterm.m
++++ b/src/nsterm.m
+@@ -10433,7 +10433,7 @@ @implementation EmacsLayer
+    cache.  If no free surfaces are found in the cache then a new one
+    is created.  */
+ 
+-#define CACHE_MAX_SIZE 2
++#define CACHE_MAX_SIZE 1
+ 
+ - (id) initWithColorSpace: (CGColorSpaceRef)cs
+ {

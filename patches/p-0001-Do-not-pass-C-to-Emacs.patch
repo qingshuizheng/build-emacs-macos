@@ -1,0 +1,27 @@
+diff --git a/src/nsterm.m b/src/nsterm.m
+index f8aac065b72..2ab8864a794 100644
+--- a/src/nsterm.m
++++ b/src/nsterm.m
+@@ -6867,6 +6867,10 @@ In that case we use UCKeyTranslate (ns_get_shifted_character)
+                        && (emacs_event->modifiers != shift_modifier)
+                        && [[theEvent charactersIgnoringModifiers] length] > 0))
+         {
++          /* for Rime: do not pass C-` to emacs, but to interpretKeyEvents. */
++          if (code == 0x60)
++            goto system_interpretation;
++
+           emacs_event->kind = NON_ASCII_KEYSTROKE_EVENT;
+           /* FIXME: What are the next four lines supposed to do?  */
+           if (code < 0x20)
+@@ -6897,6 +6901,8 @@ In that case we use UCKeyTranslate (ns_get_shifted_character)
+         }
+     }
+ 
++ system_interpretation:
++
+   /* If we get here, a non-function key without control-like modifiers
+      was hit.  Use interpretKeyEvents, which in turn will call
+      insertText; see
+-- 
+2.39.3 (Apple Git-145)
+

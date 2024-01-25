@@ -155,13 +155,13 @@ echo "
 ./configure \
   --with-dbus \
   --with-ns \
-  --with-native-compilation \
   --with-xwidgets \
   --with-modules \
   --with-mailutils \
   --with-json \
   --without-compress-install \
-  --program-transform-name='s/^ctags$/emctags/'
+  --program-transform-name='s/^ctags$/emctags/' \
+  # --with-native-compilation
 
 echo "
 # ======================================================
